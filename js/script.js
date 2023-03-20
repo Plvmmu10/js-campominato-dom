@@ -80,13 +80,13 @@ function play(){
 
                 if (bombsCounter.includes(cellValue)){
                     cell.classList.add('bomb')
-                    message = `Hai perso, il tuo punteggio è: ${score}`;
+                    message = `<h3>Hai perso, il tuo punteggio è: ${score}</h3>`;
                     gameOver = true;
                     showAllBombs(bombsCounter);
                 }else{
                     cell.classList.add('safe')
                     score++;
-                    message = score === maxScore ? `Hai vinto, il tuo punteggio è: ${score}`: `Il tuo punteggio è: ${score}`;
+                    message = score === maxScore ? `<h3>Hai vinto, il tuo punteggio è: ${score}</h3>`: `<h3>Il tuo punteggio è: ${score}</h3>`;
                 }
 
                 setMessage(message);
