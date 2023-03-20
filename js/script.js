@@ -12,10 +12,9 @@ function drawCell (i, numCell){
     cell.style.width = `calc(100% / ${numCell})`;
     cell.style.height = cell.style.width;
     
-    cell.innerHTML = i;
+    cell.innerHTML = `<p>${i}</p>`;
     return cell;
 }
-
 
 
 
@@ -26,7 +25,7 @@ function play(){
     playground.innerHTML = '';
 
     // bombs const
-    const numBombs= 16;
+    let numBombs = 16;
     // take level difficulty
     const difficulty = document.getElementById('difficultySelect').value;
     console.log(difficulty);
@@ -46,6 +45,19 @@ function play(){
             break;    
     };
 
+    function setMessage (message){
+        const scorePoints = document.getElementById('score');
+        scorePoints.innerHTML = message;
+    }
+
+    function showAllBombs(bombsCounter){
+        const cells = document.querySelectorAll('.cell');
+        for(let cell of cells){
+            if(bombsCounter.includes(parseInt(cell.innerText))){
+                cell.classList.add('bomb');
+            }
+        }
+    }
     
 
     // choosing how many cell there should be for each row
@@ -53,22 +65,36 @@ function play(){
 
     let bombsCounter = genBombs(numBombs,cellNumbers);
     
-    
+    let gameOver = false;
+
+    let maxScore = parseInt(cellNumbers - numBombs);
+
+    let score = parseInt(0);
+
     for (let i = 1; i <= cellNumbers; i++){
         const cell = drawCell(i, cellPerRow);
         cell.addEventListener('click', function(){
-            let cellValue = parseInt(cell.innerText);
+        let cellValue = parseInt(cell.innerText);
+
+            if (!gameOver && !cell.classList.contains('safe')){
 
                 if (bombsCounter.includes(cellValue)){
                     cell.classList.add('bomb')
+                    message = `Hai perso, il tuo punteggio è: ${score}`;
+                    gameOver = true;
+                    showAllBombs(bombsCounter);
                 }else{
                     cell.classList.add('safe')
+                    score++;
+                    message = score === maxScore ? `Hai vinto, il tuo punteggio è: ${score}`: `Il tuo punteggio è: ${score}`;
                 }
-        });
-        
+
+                setMessage(message);
+            }
+                
+        })
         playground.appendChild(cell);
     }
-    
 }
 
 
@@ -83,3 +109,6 @@ function genBombs(numBombs, cellNumbers){
     }
     return bombs;
 }
+
+
+
