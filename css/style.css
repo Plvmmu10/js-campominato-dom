@@ -1,0 +1,41 @@
+body{
+    background-color: #b9dd77;
+}
+
+
+.header-wrapper, .footer-wrapper{
+    background-color: #445c17;
+}
+
+#playground{
+    width: 600px;
+    height: 500px;
+}
+
+
+.cell{
+    border: 2px solid #445c17;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.safe{
+    background-color: #5e8d08;
+    color: white;
+}
+
+.cell:hover{
+    cursor: pointer;
+}
+
+
+.bomb{
+    background-color: red;
+    color: white;
+}
+
+.img-container{
+    width: 3%;
+}
